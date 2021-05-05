@@ -108,3 +108,10 @@ fun <L, R> L.asLeft(): Either<L, R> = Either.Left(this)
  * @return [Either.Right] in which the value will be wrapped.
  */
 fun <L, R> R.asRight(): Either<L, R> = Either.Right(this)
+
+/**
+ * Fold shortcut for case when [Either.Left] and [Either.Right] were reduced to the same type.
+ *
+ * @return [Either.Left.value] or [Either.Right.value]
+ */
+fun <T> Either<T, T>.merge(): T = this.fold(ifLeft = { it }, ifRight = { it })

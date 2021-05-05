@@ -84,4 +84,19 @@ internal class EitherTest {
         val value3 = either2.exists { it == 12f }
         assertEquals(value3, false)
     }
+
+    @Test
+    fun merge() {
+        5.asLeft<Int, Int>()
+            .map { it + 2 }
+            .mapLeft { it + 1 }
+            .merge()
+            .let { assertEquals(it, 6) }
+        5.asRight<Int, Int>()
+            .map { it + 2 }
+            .mapLeft { it + 1 }
+            .merge()
+            .let { assertEquals(it, 7) }
+
+    }
 }
